@@ -54,7 +54,17 @@ int main(){
     int r,c;
     int row, column;
     int poin=0;
-    cout<<"Welcome to BeaverSweep! ʕ•ᴥ•ʔ🍓"<<endl;
+    cout<<endl<<"   Welcome to BeaverSweep! ʕ•ᴥ•ʔ🍓"<<endl;
+    cout<<R"(
+    ===========================
+            ~~~     ~~~~~~
+         ~~    /\_/\  ~~~
+        ~~~   ( •ᴥ• )  ~~~~~~
+      ~~~~~~ /|_____|\ ~~~~~~
+        ~~~    /  \      ~~~
+           ~~~     ~~~~~~
+    ===========================
+    )"<<endl;
     cout<<"Enter the map dimensions to start (row column): ";
     cin>>row>>column;
     vector<vector<char>> river;
@@ -65,10 +75,18 @@ int main(){
     visibleRiver = vector<vector<char>>(row, vector<char>(column, '~'));
     mapRiver(river, row, column);
     mapRiver(visibleRiver, row, column);
-    int jumlahLife = 10;
+    int jumlahLife = 5;
     while (jumlahLife>0 && poin!=4){
         cout<<"Masukkan baris dan kolom yang mau kamu cek(row column): ";
         cin>>r>>c;
+        if(r < 0 || r >= row || c < 0 || c >= column){
+            cout << "Invalid coordinates!" << endl;
+            continue;
+        }
+        if (visibleRiver[r][c] != '~') {
+            cout << "You already checked this tile!" << endl;
+            continue;
+        }
         visibleRiver[r][c]=river[r][c];    
         mapRiver(river, row, column);
         mapRiver(visibleRiver, row, column);
