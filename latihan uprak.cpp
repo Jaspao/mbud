@@ -4,14 +4,14 @@
 using namespace std;
 
 vector<vector<char>> createRiverMap(int row, int column){
-    vector<vector<char>> riverSectors (row, vector<char>(column,'X'));
+    vector<vector<char>> riverSectors (row, vector<char>(column,'!'));
 
     int jumlahKayu = 4;
     while (jumlahKayu > 0){
         int r = rand() % row;
         int c = rand() % column;
-        if(riverSectors[r][c] == 'X'){
-            riverSectors[r][c] = 'W';
+        if(riverSectors[r][c] == '!'){
+            riverSectors[r][c] = '=';
             jumlahKayu--;
         }
     }
@@ -20,8 +20,8 @@ vector<vector<char>> createRiverMap(int row, int column){
     while (jumlahBeri > 0){
         int r = rand() % row;
         int c = rand() % column;
-        if(riverSectors[r][c] == 'X'){
-            riverSectors[r][c] = '@';
+        if(riverSectors[r][c] == '!'){
+            riverSectors[r][c] = '*';
             jumlahBeri--;
         }
     }
@@ -59,12 +59,16 @@ int main(){
     ===========================
             ~~~     ~~~~~~
          ~~    /\_/\  ~~~
-        ~~~   ( •ᴥ• )  ~~~~~~
-      ~~~~~~ /|_____|\ ~~~~~~
-        ~~~    /  \      ~~~
+        ~~~   ( •O• )  ~~~~~~
+      ~~~    /|     |__ 
+      ~~~     \_____/___) ~~~~~~
+        ~~~   /      \       ~~~
            ~~~     ~~~~~~
+    ===========================)";
+    cout<<R"(
+          ENTER TO START
     ===========================
-    )"<<endl;
+    )"<<endl;cin.get();
     cout<<"Enter the map dimensions to start (row column): ";
     cin>>row>>column;
     vector<vector<char>> river;
@@ -90,13 +94,13 @@ int main(){
         visibleRiver[r][c]=river[r][c];    
         mapRiver(river, row, column);
         mapRiver(visibleRiver, row, column);
-        if(river[r][c]=='W'){
+        if(river[r][c]=='='){
             cout<<"Wood for your dam!"<<endl;
             poin++;
         }else if(river[r][c]=='@'){
             cout<<"You found a berry!"<<endl;
             jumlahLife++;
-        }else if(river[r][c]=='X'){
+        }else if(river[r][c]=='!'){
             cout<<"Mau cek sekitar?(cost: 1 life, y/n): ";cin>>opsi;
             if(toupper(opsi)=='Y'){
                 int jumlahSekitar = digAround(river,r,c,row,column);
@@ -112,5 +116,16 @@ int main(){
         cout<<"Poin: "<<poin<<endl;
         cout << string(20, '=') << endl;
     }
-
+    if(poin == 4){
+        cout<<R"(
+            **************************
+            ==      ~~~     ~~~ ~~
+            ==   ~~    /\_/\  ~~~
+            ==  ~~~   ( •O• )  ~~~~~~
+            == ~~    /|     |__ 
+            == ~~     \_____/___) ~~~~~~
+            ==  ~~~   /      \       ~~~
+            ==    ~~~     ~~~~~~
+            **************************)";
+    }
 }
